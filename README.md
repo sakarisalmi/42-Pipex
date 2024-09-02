@@ -11,7 +11,7 @@ I hope it doesn't come as a shock that redirection is exactly what sounds like: 
 #include <unistd.h>
 
 int main(){
-char *string = "Hello, World!\n";
+char string[] = "Hello, World!\n";
 write(1, string, strlen(string));
 return(0);
 }
