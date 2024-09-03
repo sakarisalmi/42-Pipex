@@ -92,7 +92,51 @@ this is the echo command!
 ```
 You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen; the a.out _process image_ got replaced by by the echo process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
 
-Ok, One question clears just to be replaced by two new ones: how are we supposed to execute two commands in our program, and what is the point of replacing your original program 
+Ok, One question clears just to be replaced by two new ones: how are we supposed to execute two commands in our program? This is where _forking_ comes in.
+
+The fork() function is for creating a new process. Behold:
+```
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+	printf("Before forking\n");
+	fork();
+	printf("After forking\n");
+	return(0);
+}
+```
+```
+> ./a.out
+Before forking
+After forking
+After forking
+```
+As you can see, the string "After forking" gets printed twice. That is because the fork() creates a carbon copy of the original process which then continues from that point forward alongside the original one. "But wait," I hear you say, "if they're copies of each other, won't they just continue down the exact same path to the very end? How does That get us closer to executing two different commands in the same program?" To that excellent question I specify that the two processes are the exact copies of each other except for one minor thing (ok, there may be more differences between the two, but moving on). The difference is that they have different process ids, or PIDs for short. Let's look at the prototype for fork():
+> pid_t fork(void);
+
+the return value makes all the difference here. Check it out:
+```
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+	printf("before forking\n");
+	pid_t pid = fork();
+	if (pid == 0) {
+		printf("This is the parent process (pid: 0)\n");
+	} else {
+		printf("This is the child process (pid: %d)\n", pid);
+	}
+	return(0);
+}
+```
+```
+> ./a.out
+before forking
+This is the child process (pid: 47418)
+This is the parent process (pid: 0)
+```
 
 
 
