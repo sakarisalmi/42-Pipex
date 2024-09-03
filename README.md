@@ -1,8 +1,47 @@
 # 42-Pipex
-Use important programming concepts - redirection, piping and forking - to create a program in which the results of one command are fed into to another one.
+Use important programming concepts - redirection, piping and forking - to create a program in which the results of one command are fed into to another one. The idea of the project is to basically mimic what happens in a terminal like bash or zsh when you redirect or pipe stuff.
 
 ## Preamble
 This is an awesome project. It isn't that big, but it taught me some very important concepts in programming that I hadn't know about before. But when I learned them, it felt like a whole new dimension had opened up before me - and I'm sure any person who's reading this can relate to this feeling. Great stuff.
+
+But before going into the project itself, we should quickly recap what redirection and piping actually are in the shell.
+
+###Redirection
+Redirection is exactly what it sounds like: you're redirecting the input or output of a program to something else than what they usually are.
+
+without redirection:
+```
+> echo "Hello, World!\n"
+Hello, World!
+>
+```
+The output got printed to standard output, in this case, the terminal
+
+Now with redirection:
+```
+> echo "Hello, World!\n" > results.txt
+> # added this empty line to show that nothing got printed to the terminal
+> cat results.txt
+Hello, World!
+>
+```
+The echo command's output got redirected to a file (we didn't need to use the touch command because the redirection will automatically create a file if one doesn't already exists). Be careful with redirecting to any existing files, though, because using '>' will overwrite the data in it (use '>>' to append to the end of the file).
+
+To redirect the input to a command, use '<' instead.
+```
+> cat example.txt
+one
+two
+three
+> grep "two" < example.txt
+> two
+```
+Using '<<' will create a here_doc, which will take in input from the standard input until EOF (end of file) by either pressing ctrl-D or writing 'EOF'.
+
+Redirections are typically used with files, but any input/output (I/O) resource will do. There is also a lot more to redirections than what was explained here, and I do recommend looking it up, but let's keep it short, ok?
+
+### Piping
+
 
 ## The concepts
 ### redirection
