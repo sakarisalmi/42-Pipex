@@ -62,6 +62,38 @@ three
 
 Ok, Now that we know what we're trying to replicate with the program, let's get into the project!
 
+## The Project
+So we know how redirection and piping work in the CLI, how do you do the same in a C-program? How do you link two two programs together in C? Wait a second, how do you even run a program _inside_ your program, let alone two?
+
+Let's start with that first.
+### execve and forking
+To execute a file, use the execve() function.
+> int execve(const char *path, char *const argv[], char *const envp[]);
+
+A quick example:
+```
+#include <stdio.h>
+
+int main() {
+	char *args[] = {"/bin/echo", "this is the echo command!\n", NULL};
+	char *env[] = {"PATH=/bin", NULL};
+
+	printf("Before execve\n");
+	execve(args[0], args, env);
+	printf("After execve\n");
+	return(0);
+}
+```
+```
+> ./a.out
+Before execve
+this is the echo command!
+>
+```
+You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen; the a.out _process image_ got replaced by by the echo process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
+
+Ok, One question clears just to be replaced by two new ones: how are we supposed to execute two commands in our program, and what is the point of replacing your original program 
+
 
 
 ## The concepts
