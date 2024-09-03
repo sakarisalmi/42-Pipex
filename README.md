@@ -175,4 +175,4 @@ Hello, World!
 ```
 As you can see, we redirected the output to a file inside the program.
 
-And that's about it. That's all that was new in this project.
+And that's about it. That's everything new that you'll need to do this project yourself!
