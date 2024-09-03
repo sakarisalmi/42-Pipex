@@ -20,7 +20,7 @@ The output got printed to standard output, in this case, the terminal.
 Now with redirection:
 ```
 > echo "Hello, World!\n" > results.txt
->     # added this empty line to show that nothing got printed out on the terminal
+# no output to in the terminal
 > cat results.txt
 Hello, World!
 >
@@ -66,7 +66,7 @@ Ok, Now that we know what we're trying to replicate with the program, let's get 
 So we know how redirection and piping work in the CLI, how do you do the same in a C-program? How do you link two two programs together in C? Wait a second, how do you even run a program _inside_ your program, let alone two?
 
 Let's start with that first.
-### execve and forking
+### execve and fork
 To execute a file, use the execve() function.
 > int execve(const char *path, char *const argv[], char *const envp[]);
 
@@ -140,11 +140,39 @@ This is the parent process (pid: 0)
 ```
 As you can see, the processes printed something different this time (if you run the program a multiple times, you'll notice that the pid will keep changing, and that the order of which process prints out first - this is because both processes run simultaneously). And just like printing two different strings, we're able to make the processes do radically different things, like the execution of two different commands!
 
-## Pipes
+## pipes, dup and dup2
 So now that we are able to to execute two different commands, how do we feed the output of one command to the other?
 
 This is where pipes come in again!
 
 We've already done piping in the CLI, but we didn't go into detail of what happens 'under the hood', so to say.
 
-We use something called 
+>int dup(int fildes);
+>int dup2(int fildes, int fildes2);
+
+dup() duplicates an existing object descriptor and returns its value to the calling process. In dup2(), the value of the new descriptor fildes2 is specified.
+
+We aren't that interested in dup(), but dup2(). Here, look:
+```
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+
+int main(){
+	int fd = open("example.txt", O_RDONLY); // This file already exists in this example
+	dup2(fd, 1);
+
+	printf("Hello, World!\n");
+	return(0);
+}
+```
+```
+> ./a.out
+# once again, nothing output to the terminal
+> cat example.txt
+Hello, World!
+>
+```
+As you can see, we redirected the output to a file inside the program.
+
+And that's about it. That's all that was new in this project.
