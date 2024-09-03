@@ -4,9 +4,9 @@ Use important programming concepts - redirection, piping and forking - to create
 ## Preamble
 This is an awesome project. It isn't that big, but it taught me some very important concepts in programming that I hadn't know about before. But when I learned them, it felt like a whole new dimension had opened up before me - and I'm sure any person who's reading this can relate to this feeling. Great stuff.
 
-But before going into the project itself, we should quickly recap what redirection and piping actually are in the shell.
+But before going into the project itself, we should quickly recap what redirection and piping actually do in the shell.
 
-###Redirection
+### Redirection
 Redirection is exactly what it sounds like: you're redirecting the input or output of a program to something else than what they usually are.
 
 without redirection:
@@ -15,12 +15,12 @@ without redirection:
 Hello, World!
 >
 ```
-The output got printed to standard output, in this case, the terminal
+The output got printed to standard output, in this case, the terminal.
 
 Now with redirection:
 ```
 > echo "Hello, World!\n" > results.txt
-> # added this empty line to show that nothing got printed to the terminal
+>     # added this empty line to show that nothing got printed out on the terminal
 > cat results.txt
 Hello, World!
 >
@@ -34,13 +34,34 @@ one
 two
 three
 > grep "two" < example.txt
-> two
+two
+>
 ```
 Using '<<' will create a here_doc, which will take in input from the standard input until EOF (end of file) by either pressing ctrl-D or writing 'EOF'.
 
 Redirections are typically used with files, but any input/output (I/O) resource will do. There is also a lot more to redirections than what was explained here, and I do recommend looking it up, but let's keep it short, ok?
 
 ### Piping
+Whereas redirection is typically used with files and such, piping is used to chain programs and commands to each other, where the previous commands output is redirected as input to the next command. The symbol used for piping is '|'.
+```
+> echo "one\ntwo\nthree" | grep "two"
+two
+>
+```
+You can chain as many commands together as you want, and yes, that means you can do some pretty powerful stuff. Of course, you can always use redirections and piping together.
+```
+> cat example.txt
+one
+two
+three
+> grep "two" < example.txt | wc > results.txt
+> cat results.txt
+    1    1    4
+>
+```
+
+Ok, Now that we know what we're trying to replicate with the program, let's get into the project!
+
 
 
 ## The concepts
