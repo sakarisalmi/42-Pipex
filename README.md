@@ -138,10 +138,10 @@ This is the child process (pid: 47418)
 This is the parent process (pid: 0)
 >
 ```
-As you can see, the processes printed something different this time (if you run the program a multiple times, you'll notice that the pid will keep changing, and that the order of which process prints out first - this is because both processes run simultaneously). And just like printing two different strings, we're able to make the processes do radically different things, like the execution of two different commands!
+As you can see, the processes printed something different this time (if you run the program multiple times, you'll notice that the pid will keep changing, and maybe also the order of which process output prints out first - this is because both processes run simultaneously, and it's random which one outputs its contents first. And just like printing two different strings, we're also able to execute two different commands!
 
 ## pipes, dup and dup2
-So now that we are able to to execute two different commands, how do we feed the output of one command to the other?
+So now that we are able to to execute two different commands, how do we feed the output of one command to another as input?
 
 This is where pipes come in again!
 
@@ -168,11 +168,11 @@ int main(){
 ```
 ```
 > ./a.out
-# once again, nothing output to the terminal
+# nothing output to the terminal
 > cat example.txt
 Hello, World!
 >
 ```
-As you can see, we redirected the output to a file inside the program.
+As you can see, we redirected the output to a file from inside the program.
 
-And that's about it. That's everything new that you'll need to do this project yourself!
+And that's about it. That's everything new that the project taught me.
