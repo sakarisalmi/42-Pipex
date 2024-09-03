@@ -92,7 +92,7 @@ this is the echo command!
 ```
 You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen; the a.out _process image_ got replaced by by the echo process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
 
-Ok, One question cleared just for two new ones to show up: how are we supposed to execute two commands in our program? This is where _forking_ comes in.
+Ok, One question cleared for a new one to take its place: how are we supposed to execute two commands in our program? This is where _forking_ comes in.
 
 The fork() function is for creating a new process. Behold:
 ```
