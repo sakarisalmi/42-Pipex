@@ -2,7 +2,7 @@
 Use important programming concepts - redirection, piping and forking - to create a program in which the results of one command are fed into to another one. The idea of the project is to basically mimic what happens in a terminal like bash or zsh when you redirect or pipe commands.
 
 ## Preamble
-This is an awesome project. It isn't that big, but it taught me some very important concepts in programming that I hadn't know about before. But when I learned them, it felt like a whole new dimension had opened up before me - and I'm sure any person who's reading this can relate to this feeling. Great stuff.
+This is an awesome project. It isn't that big, but it taught me some very important concepts in programming that I hadn't know about before. But when I learned them, it felt like a whole new dimension had opened up before me - and I'm sure any programmer who's reading this can relate to this feeling. Great stuff.
 
 But before going into the project itself, we should quickly recap what redirection and piping actually do in the shell.
 
