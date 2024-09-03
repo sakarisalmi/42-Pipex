@@ -60,9 +60,9 @@ three
 >
 ```
 
-Ok, Now that we know what we're trying to replicate with the program, let's get into the project!
+Ok, Now that we know what we're trying to replicate with the program, let's get into the new interesting things in the project!
 
-## The Project
+## New concepts learned in the project
 So we know how redirection and piping work in the CLI, how do you do the same in a C-program? How do you link two two programs together in C? Wait a second, how do you even run a program _inside_ your program, let alone two?
 
 Let's start with that first.
@@ -138,5 +138,13 @@ This is the child process (pid: 47418)
 This is the parent process (pid: 0)
 >
 ```
-As you can see, the processes printed something different this time, and we're able to make the processes do very different things, like execute two different commands.
+As you can see, the processes printed something different this time (if you run the program a multiple times, you'll notice that the pid will keep changing, and that the order of which process prints out first - this is because both processes run simultaneously). And just like printing two different strings, we're able to make the processes do radically different things, like the execution of two different commands!
 
+## Pipes
+So now that we are able to to execute two different commands, how do we feed the output of one command to the other?
+
+This is where pipes come in again!
+
+We've already done piping in the CLI, but we didn't go into detail of what happens 'under the hood', so to say.
+
+We use something called 
