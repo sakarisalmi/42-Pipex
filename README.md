@@ -62,11 +62,11 @@ three
 
 Ok, Now that we know what we're trying to replicate with the program, let's get into the new interesting things in the project!
 
-## New concepts learned in the project
+## New Concepts Learned in the Project
 So now we know how redirection and piping work in the CLI, but how do you do the same in a C-program? How do you link two two programs together in C? Wait a second, how do you even run a program _inside_ your program, let alone two?
 
 Let's start with that first.
-### execve and fork
+### Execve and Fork
 To execute a file, use the execve() function.
 > int execve(const char *path, char *const argv[], char *const envp[]);
 
@@ -140,7 +140,7 @@ This is the parent process (pid: 0)
 ```
 As you can see, the processes printed something different this time (if you run the program multiple times, you'll notice that the pid will keep changing, and maybe also the order of which process output prints out first - this is because both processes run simultaneously, and it's random which one outputs its contents first). And just we're able to make the two processes print different strings, we're also able to execute different commands!
 
-## pipes, dup and dup2
+## Pipes, Dup and Dup2
 So now that we are able to to execute two different commands, how do we feed the output of one command to another as input?
 
 This is where pipes come in again!
@@ -175,4 +175,27 @@ Hello, World!
 ```
 As you can see, we redirected the output to a file from inside the program.
 
-And that's about it. That's everything new that the project introduces.
+And that's about it. These are the ingredients you need to be able to do this project.
+
+## The Goal of the Project
+
+The program will be executed as follows:
+> ./pipex file1 cmd1 cmd2 file2
+
+There 4 arguments are:
+- file1 and file2 are file names.
+- cmd1 and cmd2 are shell commands with their parameters.
+
+The program must behave the same as the shell command below:
+```
+$> < file1 cmd1 | cmd2 > file2
+```
+
+## How to Set Up the Project
+1. Clone the git repository with its submodule.
+   > git clone --recurse-submodules <repository_url>
+3. In the project directory, use 'make' or 'make all'.
+4. Run the program as shown in the previous section.
+5. To clean the directory after running the program, use 'make fclean'.
+
+Enjoy!
