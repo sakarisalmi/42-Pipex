@@ -25,7 +25,7 @@ Now with redirection:
 Hello, World!
 >
 ```
-The echo command's output got redirected to a file (we didn't need to use the touch command because the redirection will automatically create a file if one doesn't already exists). Be careful with redirecting to any existing files, though, because using '>' will overwrite the data in it (use '>>' to append to the end of the file).
+The echo command's output got redirected to a file (we didn't need to use the touch command because the redirection will automatically create a file if one doesn't already exists). Be careful when redirecting to any existing files though, because using '>' will overwrite the data in the file (use '>>' to append to the end of the file).
 
 To redirect the input of command, use '<' instead.
 ```
@@ -90,7 +90,7 @@ Before execve
 this is the echo command!
 >
 ```
-You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen; the a.out _process image_ got replaced by by the echo process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
+You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen; the a.out _process image_ got replaced by by the echo command's process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
 
 Ok, One question cleared just for a new one to take its place: how are we supposed to execute two commands in our program? This is where _forking_ comes in.
 
@@ -111,8 +111,9 @@ int main() {
 Before forking
 After forking
 After forking
+>
 ```
-As you can see, the string "After forking" gets printed twice. That is because the fork() creates a carbon copy of the original process which then continues from that point forward alongside the original one. "But wait," I hear you say, "if they're copies of each other, won't they just continue down the exact same path to the very end? How does That get us closer to executing two different commands in the same program?" To that excellent question I specify that the two processes are the exact copies of each other except for one minor thing (ok, there may be more differences between the two, but moving on). The difference is that they have different process ids, or PIDs for short. Let's look at the prototype for fork():
+As you can see, the string "After forking" gets printed twice. That is because the fork() creates a copy of the original process which then continues from that point forward alongside the original one. "But wait," I hear you say, "if they're copies of each other, won't they just continue down the exact same path to the very end? How does That get us closer to executing two different commands in the same program?" To that excellent question I specify that the two processes are the exact copies of each other except for one minor thing (ok, there may be more differences between the two, but moving on). The difference is that they have different process ids, or PIDs for short. Let's look at the prototype for fork():
 > pid_t fork(void);
 
 the return value makes all the difference here. Check it out:
@@ -138,16 +139,17 @@ This is the child process (pid: 47418)
 This is the parent process (pid: 0)
 >
 ```
-As you can see, the processes printed something different this time (if you run the program multiple times, you'll notice that the pid will keep changing, and maybe also the order of which process output prints out first - this is because both processes run simultaneously, and it's random which one outputs its contents first). And just we're able to make the two processes print different strings, we're also able to execute different commands!
+As you can see, the processes printed something different this time (if you run the program multiple times, you'll notice that the pid will keep changing, and maybe also the order of which process output prints out first - this is because both processes run simultaneously, and it's random which one outputs its contents first). And just like we're able to make the two processes print different strings, we're also able to execute different commands!
 
 ## Pipes, Dup and Dup2
 So now that we are able to to execute two different commands, how do we feed the output of one command to another as input?
 
-This is where pipes come in again!
+This is where pipes come back in again!
 
 We've already done piping in the CLI, but we didn't go into detail of what happens 'under the hood', so to say.
 
 >int dup(int fildes);
+
 >int dup2(int fildes, int fildes2);
 
 dup() duplicates an existing object descriptor and returns its value to the calling process. In dup2(), the value of the new descriptor fildes2 is specified.
