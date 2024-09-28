@@ -1,3 +1,4 @@
+
 # 42-Pipex
 Use important programming concepts - redirection, piping and forking - to create a program in which the results of one command are fed into to another one. The idea of the project is to basically mimic what happens in a terminal like bash or zsh when you redirect or pipe commands.
 
@@ -193,7 +194,7 @@ The program must behave the same as the shell command below:
 $> < file1 cmd1 | cmd2 > file2
 ```
 
-## How to Set Up the Project
+## How to Set Up and Run the Project
 1. Clone the git repository with its submodule.
    > git clone --recurse-submodules <repository_url>
 3. In the project directory, use 'make' or 'make all'.
