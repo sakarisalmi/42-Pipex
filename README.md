@@ -63,7 +63,7 @@ three
 Ok, Now that we know what we're trying to replicate with the program, let's get into the new interesting things in the project!
 
 ## New concepts learned in the project
-So now we know how redirection and piping work in the CLI, but how do you do the same in a C-program? How do you link two two programs together in C? Wait a second, how do you even run a program _inside_ your program, let alone two?
+So now we know how redirection and piping work in the CLI, but how do you do the same in a C-program? How do you link two programs together in C? Wait a second, how do you even run a program _inside_ your program, let alone two?
 
 Let's start with that first.
 ### execve and fork
@@ -90,7 +90,7 @@ Before execve
 this is the echo command!
 >
 ```
-You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen; the a.out _process image_ got replaced by by the echo process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
+You'll notice two things. First, the execve() worked. Second, for some reason the second printf-statement didn't show up. That's because it didn't happen: the a.out _process image_ got replaced by by the echo process image (the process image is the in-memory representation of a process). So when you run execve, your program gets entirely replaced by what you put in the execve arguments and if it didn't, something went wrong and there was an error.
 
 Ok, One question cleared just for a new one to take its place: how are we supposed to execute two commands in our program? This is where _forking_ comes in.
 
@@ -112,7 +112,7 @@ Before forking
 After forking
 After forking
 ```
-As you can see, the string "After forking" gets printed twice. That is because the fork() creates a carbon copy of the original process which then continues from that point forward alongside the original one. "But wait," I hear you say, "if they're copies of each other, won't they just continue down the exact same path to the very end? How does That get us closer to executing two different commands in the same program?" To that excellent question I specify that the two processes are the exact copies of each other except for one minor thing (ok, there may be more differences between the two, but moving on). The difference is that they have different process ids, or PIDs for short. Let's look at the prototype for fork():
+As you can see, the string "After forking" gets printed twice. That is because the fork() creates a copy of the original process which then continues from that point forward alongside the original one. "But wait," I hear you say, "if they're copies of each other, won't they just continue down the exact same path to the very end? How does That get us closer to executing two different commands in the same program?" To that excellent question I specify that the two processes are the exact copies of each other except for one minor thing (ok, there may be more differences between the two, but moving on). The difference is that they have different process ids, or PIDs for short. Let's look at the prototype for fork():
 > pid_t fork(void);
 
 the return value makes all the difference here. Check it out:
@@ -176,3 +176,22 @@ Hello, World!
 As you can see, we redirected the output to a file from inside the program.
 
 And that's about it. That's everything new that the project introduces.
+
+## How to Run Program
+To run the program, you must have the following prerequisites:
+1. An Unix-based system
+2. GNU Make
+3. GCC
+
+If you have the prerequisites, do the following:
+1. clone the repository
+   > git clone [repository name]
+2. call make in the repository root
+   > make
+3. run the program with the following arguments
+   > ./pipex [infile] [first command] [second command] [outfile]
+
+   Running the program does the same as doing this in a shell:
+   > < [infile] [first command] | [second command] > outfile
+
+Enjoy!
